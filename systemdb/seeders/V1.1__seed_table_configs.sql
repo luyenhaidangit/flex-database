@@ -1,0 +1,5 @@
+INSERT INTO "Configs" (KEY, VALUE, DESCRIPTION, LASTMODIFIEDDATE) 
+VALUES ('AUTH_MODE', 'DB', 'Phương thức xác thực của hệ thống (NONE, LDAP, DB, ...)', SYSTIMESTAMP);
+
+COMMIT;
+/
