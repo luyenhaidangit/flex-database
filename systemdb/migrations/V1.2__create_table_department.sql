@@ -4,7 +4,7 @@ CREATE TABLE "Departments" (
     ADDRESS            VARCHAR2(100),                     -- Tên người quản lý
     DESCRIPTION        CLOB,                              -- Mô tả
     STATUS             CHAR(1),                           -- Trạng thái (A: Active, E: Expired,...)
-    CREATEDDATE       TIMESTAMP(7) WITH TIME ZONE NOT NULL,
+    CREATEDDATE        TIMESTAMP(7) WITH TIME ZONE NOT NULL,
     LASTMODIFIEDDATE   TIMESTAMP(7) WITH TIME ZONE
 );
 /
@@ -23,4 +23,16 @@ CREATE TABLE "DEPARTMENT_REQUESTS" (
     CREATEDDATE        TIMESTAMP(7) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, -- Ngày tạo
     LASTMODIFIEDDATE   TIMESTAMP(7) WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP -- Ngày chỉnh sửa
 );
+/
+
+ALTER TABLE "Departments"
+ADD PROCESS_STATUS VARCHAR2(1000);
+/
+
+UPDATE "Departments"
+SET PROCESS_STATUS = 'PA' WHERE 0 = 0;
+/
+
+ALTER TABLE "Departments"
+MODIFY PROCESS_STATUS VARCHAR2(1000) NOT NULL;
 /
