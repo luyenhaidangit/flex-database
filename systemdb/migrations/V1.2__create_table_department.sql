@@ -3,7 +3,7 @@ CREATE TABLE "Departments" (
     NAME               VARCHAR2(400),                     -- Tên phòng ban/chi nhánh
     ADDRESS            VARCHAR2(100),                     -- Tên người quản lý
     DESCRIPTION        CLOB,                              -- Mô tả
-    STATUS             CHAR(1),                           -- Trạng thái (A: Active, E: Expired,...)
+    STATUS             NVARCHAR2(10),                     -- Trạng thái (A: Active, E: Expired,...)
     CREATEDDATE        TIMESTAMP(7) WITH TIME ZONE NOT NULL,
     LASTMODIFIEDDATE   TIMESTAMP(7) WITH TIME ZONE
 );
@@ -26,7 +26,7 @@ CREATE TABLE "DEPARTMENT_REQUESTS" (
 /
 
 ALTER TABLE "Departments"
-ADD PROCESS_STATUS VARCHAR2(1000);
+ADD PROCESS_STATUS NVARCHAR2(1000);
 /
 
 UPDATE "Departments"
