@@ -17,3 +17,14 @@ GRANT CREATE PROCEDURE TO flex_system;
 GRANT CREATE TRIGGER TO flex_system;
 GRANT CREATE SYNONYM TO flex_system;
 /
+
+BEGIN
+  ORDS.ENABLE_SCHEMA(
+    p_enabled => TRUE,
+    p_schema => 'FLEX_SYSTEM',
+    p_url_mapping_type => 'BASE_PATH',
+    p_url_mapping_pattern => 'flex_system',
+    p_auto_rest_auth => FALSE
+  );
+END;
+/
