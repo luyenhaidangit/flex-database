@@ -1,0 +1,61 @@
+# ================================================
+# SCRIPT: redis_format_script.txt - 04/06/2025 11:26 PM +07
+# ================================================
+
+# ================================================
+# BLACKLIST TOKEN
+# ================================================
+# Format: jwt-blacklist:{token_id}
+# - Key: String with prefix "jwt-blacklist:" followed by token_id (e.g., jwt-blacklist:abc123)
+# - Value: String (e.g., "revoked") or JSON (e.g., {"revoked_at": "...", "reason": "..."})
+# - TTL: Set via EXPIRE (e.g., 3600 seconds = 1 hour)
+SETEX jwt-blacklist:{token_id} <ttl> "<value_format>"  # Placeholder for TTL and value format
+# Example command (commented, no data): SETEX jwt-blacklist:{token_id} 3600 "revoked"
+
+# ================================================
+# ACTIVE TOKEN
+# ================================================
+# Format: active-token:{user_id}:{token_id}
+# - Key: Hash with prefix "active-token:" followed by user_id and token_id (e.g., active-token:user123:xyz789)
+# - Fields: user_id, expires_at, roles (JSON array)
+# - Value: Hash map (e.g., user_id="user123", expires_at="...", roles="[\"admin\"]")
+# - TTL: Set via EXPIRE (e.g., 1800 seconds = 30 minutes)
+HSET active-token:{user_id}:{token_id} user_id "<user_id_format>" expires_at "<timestamp_format>" roles "<json_array_format>"
+EXPIRE active-token:{user_id}:{token_id} <ttl>  # Placeholder for TTL
+# Example command (commented, no data): HSET active-token:{user_id}:{token_id} user_id "user123" expires_at "2025-06-05T23:30:00Z" roles "[\"admin\"]"
+
+# ================================================
+# ROLE CACHE
+# ================================================
+# Format: role-cache:{role_id}
+# - Key: Hash with prefix "role-cache:" followed by role_id (e.g., role-cache:1)
+# - Fields: id, name, permissions (JSON array)
+# - Value: Hash map (e.g., id="1", name="admin", permissions="[\"VIEW_TRANSACTIONS\",\"APPROVE_ORDERS\"]")
+# - TTL: Set via EXPIRE (e.g., 86400 seconds = 24 hours)
+HSET role-cache:{role_id} id "<id_format>" name "<name_format>" permissions "<json_array_format>"
+EXPIRE role-cache:{role_id} <ttl>  # Placeholder for TTL
+# Example command (commented, no data): HSET role-cache:{role_id} id "1" name "admin" permissions "[\"VIEW_TRANSACTIONS\",\"APPROVE_ORDERS\"]"
+
+# ================================================
+# USER CACHE
+# ================================================
+# Format: user-cache:{user_id}
+# - Key: Hash with prefix "user-cache:" followed by user_id (e.g., user-cache:user123)
+# - Fields: id, user_name, full_name, is_active
+# - Value: Hash map (e.g., id="user123", user_name="admin", full_name="Admin User", is_active="true")
+# - TTL: Set via EXPIRE (e.g., 3600 seconds = 1 hour)
+HSET user-cache:{user_id} id "<id_format>" user_name "<user_name_format>" full_name "<full_name_format>" is_active "<boolean_format>"
+EXPIRE user-cache:{user_id} <ttl>  # Placeholder for TTL
+# Example command (commented, no data): HSET user-cache:{user_id} id "user123" user_name "admin" full_name "Admin User" is_active "true"
+
+# ================================================
+# SERVICE CACHE
+# ================================================
+# Format: service-cache:{service_account_id}
+# - Key: Hash with prefix "service-cache:" followed by service_account_id (e.g., service-cache:svc001)
+# - Fields: id, name, api_key_hash, role_id
+# - Value: Hash map (e.g., id="svc001", name="KRX-Service", api_key_hash="hashed_key", role_id="2")
+# - TTL: Set via EXPIRE (e.g., 86400 seconds = 24 hours)
+HSET service-cache:{service_account_id} id "<id_format>" name "<name_format>" api_key_hash "<hash_format>" role_id "<role_id_format>"
+EXPIRE service-cache:{service_account_id} <ttl>  # Placeholder for TTL
+# Example command (commented, no data): HSET service-cache:{service_account_id} id "svc001" name "KRX-Service" api_key_hash "hashed_key" role_id "2"
