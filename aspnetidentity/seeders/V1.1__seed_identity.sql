@@ -9,3 +9,14 @@ VALUES (1, 1);
 
 COMMIT;
 /
+
+-- 07/06/2025: Seed ROLE_REQUESTS
+INSERT INTO ROLE_REQUESTS (ID, ENTITY_ID, ACTION, STATUS, REQUESTED_DATA, COMMENTS, MAKER_ID, REQUESTED_DATE, CHECKER_ID, APPROVE_DATE) 
+VALUES (3, null, 'CREATE', 'UNA', '{
+                  "Code": "ADMIN",
+                  "Name": "Administrator",
+                  "Description": "Quyền quản trị hệ thống",
+                  "IsActive": true
+                }', 'Add cho vui', '1', TIMESTAMP '2025-06-07 15:46:41.000000', null, null);
+
+COMMIT;
