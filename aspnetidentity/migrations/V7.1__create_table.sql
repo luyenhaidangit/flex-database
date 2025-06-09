@@ -131,9 +131,9 @@ SELECT
     r.CHECKER_ID     AS UPDATED_BY,
     r.APPROVE_DATE   AS UPDATED_DATE,
 
-    json_value(r.REQUESTED_DATA, '$.Code' RETURNING VARCHAR2(100 CHAR)) AS CODE,
-    json_value(r.REQUESTED_DATA, '$.Name' RETURNING VARCHAR2(200 CHAR)) AS NAME,
-    json_value(r.REQUESTED_DATA, '$.Description' RETURNING VARCHAR2(500 CHAR)) AS DESCRIPTION,
-    json_value(r.REQUESTED_DATA, '$.IsActive' RETURNING VARCHAR2(5 CHAR)) AS IS_ACTIVE
+    TO_NCHAR(json_value(r.REQUESTED_DATA, '$.Code'))        AS CODE,
+    TO_NCHAR(json_value(r.REQUESTED_DATA, '$.Name'))        AS NAME,
+    TO_NCHAR(json_value(r.REQUESTED_DATA, '$.Description')) AS DESCRIPTION,
+    TO_NCHAR(json_value(r.REQUESTED_DATA, '$.IsActive'))    AS IS_ACTIVE
 
 FROM ROLE_REQUESTS r;
