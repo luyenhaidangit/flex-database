@@ -38,12 +38,8 @@ create table ROLES
     CONCURRENCY_STAMP VARCHAR2(256 char),
     CODE              VARCHAR2(255 char) not null unique,
     DESCRIPTION       VARCHAR2(1000 char) default '',
-    IS_ACTIVE         CHAR default 'Y' check (IS_ACTIVE IN ('Y', 'N')),
-    CREATED_AT        TIMESTAMP(6) default CURRENT_TIMESTAMP not null,
-    LAST_UPDATED      TIMESTAMP(6),
-    STATUS            VARCHAR2(20) DEFAULT 'APPROVED' CHECK (STATUS IN ('DRAFT', 'PENDING', 'APPROVED', 'REJECTED')),
-    MAKER_ID          VARCHAR2(256 CHAR),
-    CHECKER_ID        VARCHAR2(256 CHAR)
+    IS_ACTIVE         CHAR,
+    STATUS            VARCHAR2(20)
 )
 /
 
