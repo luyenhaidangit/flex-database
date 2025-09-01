@@ -1,0 +1,23 @@
+CREATE OR REPLACE VIEW V_PROPOSED_BRANCH AS
+SELECT
+    r.ID,
+    r.ENTITY_ID,
+    r.STATUS,
+    r.ACTION,
+    r.MAKER_ID       AS CREATED_BY,
+    r.REQUESTED_DATE AS CREATED_DATE,
+    r.CHECKER_ID     AS APPROVE_BY,
+    r.APPROVE_DATE   AS APPROVE_DATE,
+    jt.USER_NAME,
+    jt.FULL_NAME,
+    jt.EMAIL
+FROM USER_REQUESTS r
+CROSS APPLY JSON_TABLE(
+    r.REQUESTED_DATA, '$'
+    COLUMNS (
+        USER_NAME        VARCHAR2(128)  PATH '$.UserName',
+        FULL_NAME       VARCHAR2(256)   PATH '$.FullName',
+        EMAIL           VARCHAR2(1000)  PATH '$.Email'
+    )
+) jt;
+/
