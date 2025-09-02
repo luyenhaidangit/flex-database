@@ -1,6 +1,6 @@
 CREATE OR REPLACE VIEW V_USER_REQUESTS AS
 SELECT
-    r.ID,
+    r.ID            AS REQUEST_ID,
     r.ENTITY_ID,
     r.STATUS,
     r.ACTION,
@@ -8,16 +8,14 @@ SELECT
     r.REQUESTED_DATE AS CREATED_DATE,
     jt.USER_NAME,
     jt.FULL_NAME,
-    jt.EMAIL,
-    jt.PHONE_NUMBER
+    jt.EMAIL
 FROM USER_REQUESTS r
 CROSS APPLY JSON_TABLE(
     r.REQUESTED_DATA, '$'
     COLUMNS (
         USER_NAME       VARCHAR2(128)   PATH '$.UserName',
         FULL_NAME       VARCHAR2(256)   PATH '$.FullName',
-        EMAIL           VARCHAR2(1000)  PATH '$.Email',
-        PHONE_NUMBER    VARCHAR2(50)    PATH '$.PhoneNumber'
+        EMAIL           VARCHAR2(1000)  PATH '$.Email'
     )
 ) jt;
 /
